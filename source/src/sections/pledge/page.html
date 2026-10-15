@@ -1,0 +1,70 @@
+<title>TVK Ideology · The Pledge</title>
+<style>
+@font-face{font-family:"Cinzel";font-weight:700;font-display:swap;src:url(data:font/woff2;base64,__CINZEL700_B64__) format("woff2")}
+@font-face{font-family:"Cinzel";font-weight:500;font-display:swap;src:url(data:font/woff2;base64,__CINZEL500_B64__) format("woff2")}
+@font-face{font-family:"TamilSerif";font-weight:400;font-display:swap;src:url(data:font/woff2;base64,__NST400_B64__) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:"TamilSerif";font-weight:700;font-display:swap;src:url(data:font/woff2;base64,__NST700_B64__) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:"TamilSerif";font-weight:400;font-display:swap;src:url(data:font/woff2;base64,__NSTL400_B64__) format("woff2");unicode-range:U+0000-00FF,U+2013-2014,U+2018-201D,U+00B7}
+:root{--bg:#0b0604;--earth:#1a0f08;--gold:#e7b85a;--gold-hi:#f6dca0;--ink:#f3e6cc;--ink-dim:rgba(243,230,204,.74);
+  --f-title:"Cinzel","Trajan Pro",Georgia,serif;--f-ta:"TamilSerif","Noto Serif Tamil",serif;--f-body:"TamilSerif",Georgia,serif;color-scheme:dark}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+.spacer{height:80svh;display:grid;place-items:center;font:500 12px/1 var(--f-title);letter-spacing:.3em;text-transform:uppercase;color:rgba(246,220,160,.6)}
+#pledge{position:relative;height:300svh}
+.pin{position:sticky;top:0;height:100svh;overflow:hidden;background:radial-gradient(70% 65% at 50% 42%,#2a170b 0%,var(--earth) 48%,var(--bg) 100%)}
+#pledge-stage{position:absolute;inset:0}
+#pledge-stage canvas{display:block;width:100%;height:100%}
+/* fragments fall away into the dark */
+.floor{position:absolute;left:0;right:0;bottom:0;height:24%;pointer-events:none;background:linear-gradient(to bottom,rgba(11,6,4,0),var(--bg) 85%)}
+.grain{position:absolute;inset:-50%;pointer-events:none;opacity:.03;will-change:transform;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%,100%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,3%)}}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(115% 90% at 50% 45%,transparent 52%,rgba(0,0,0,.7) 100%)}
+.head{position:absolute;z-index:2;top:calc(env(safe-area-inset-top,0px) + 6svh);left:0;right:0;text-align:center;pointer-events:none;transition:opacity .6s}
+.head .k{font:500 clamp(10px,.95vw,13px)/1 var(--f-title);letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
+.head .t{margin-top:10px;font:700 clamp(18px,1.9vw,26px)/1.3 var(--f-ta);color:var(--ink)}
+.cue{position:absolute;z-index:2;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);translate:-50% 0;display:grid;justify-items:center;gap:8px;
+  font:500 11px/1 var(--f-title);letter-spacing:.32em;text-transform:uppercase;color:var(--gold-hi);transition:opacity .4s;white-space:nowrap}
+.cue i{display:block;width:2px;height:30px;background:linear-gradient(var(--gold),transparent);animation:cue 1.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+/* the pledge text, after the stones are gone */
+.copy{position:absolute;z-index:3;left:50%;top:50%;translate:-50% -50%;width:min(860px,calc(100vw - 40px));text-align:center;display:grid;justify-items:center;gap:clamp(10px,1.6svh,18px);pointer-events:none}
+.copy > *{margin:0;opacity:0;transform:translateY(22px);filter:blur(10px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1),filter .9s}
+.copy.in > *{opacity:1;transform:none;filter:none}
+.copy.in > :nth-child(2){transition-delay:.12s}.copy.in > :nth-child(3){transition-delay:.3s}.copy.in > :nth-child(4){transition-delay:.45s}.copy.in > :nth-child(5){transition-delay:.6s}
+.copy .k{font:500 clamp(10px,.95vw,13px)/1 var(--f-title);letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
+.copy .ta{font:700 clamp(26px,3.4vw,52px)/1.25 var(--f-ta);color:var(--gold);text-shadow:0 2px 0 #3a1d08,0 14px 40px rgba(0,0,0,.6);text-wrap:balance}
+.copy .en{font:700 clamp(20px,2.3vw,34px)/1.2 var(--f-title);color:var(--ink);letter-spacing:.03em}
+.copy .words{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 18px;font:500 clamp(11px,1vw,14px)/1 var(--f-title);letter-spacing:.3em;text-transform:uppercase;color:var(--ink-dim)}
+.copy .words s{text-decoration:none;position:relative}
+.copy .words s::after{content:"";position:absolute;left:-4px;right:-4px;top:50%;height:1.5px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.copy.in .words s::after{transform:scaleX(1)}
+.copy.in .words s:nth-child(1)::after{transition-delay:.9s}.copy.in .words s:nth-child(2)::after{transition-delay:1.05s}.copy.in .words s:nth-child(3)::after{transition-delay:1.2s}.copy.in .words s:nth-child(4)::after{transition-delay:1.35s}
+.copy .sum{font:400 clamp(14px,1.25vw,18px)/1.65 var(--f-body);color:var(--ink-dim);max-width:640px}
+.tag{position:absolute;z-index:5;left:16px;bottom:12px;font:500 10px/1.3 var(--f-title);letter-spacing:.08em;color:rgba(243,230,204,.4)}
+.next{height:100svh;display:grid;place-items:center;align-content:center;gap:12px;background:linear-gradient(var(--bg),#160b05);text-align:center}
+.next p{margin:0;font:500 12px/1 var(--f-title);letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+.next h3{margin:0;font:700 clamp(28px,4vw,56px)/1 var(--f-title);color:rgba(243,230,204,.3)}
+@media (max-aspect-ratio:4/5){.head{top:calc(env(safe-area-inset-top,0px) + 3svh)}.copy .sum{font-size:14px}}
+@media (prefers-reduced-motion:reduce){.grain,.cue i{animation:none}.copy > *{transition:none}}
+</style>
+<div class="spacer">Scroll down ↓</div>
+<section id="pledge" aria-label="Ideology: our pledge">
+  <div class="pin">
+    <div id="pledge-stage" aria-hidden="true"></div>
+    <div class="floor" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="head" aria-hidden="true"><div class="k">Our pledge</div><div class="t" lang="ta">உறுதிமொழி</div></div>
+    <div class="copy" id="pledge-copy">
+      <p class="k">Our pledge · எங்கள் உறுதிமொழி</p>
+      <h2 class="ta" lang="ta">சாதி, மதம், பாலினம், பிறப்பிடம் என்ற பிரிவினைகள் இனி இல்லை</h2>
+      <p class="en">No more walls between us</p>
+      <p class="words" aria-label="Caste, religion, gender, birthplace"><s>Caste</s><s>Religion</s><s>Gender</s><s>Birthplace</s></p>
+      <p class="sum">We pledge to end every division of caste, religion, gender and birthplace, because every life is born equal.</p>
+    </div>
+    <div class="cue" id="pledge-cue" aria-hidden="true"><span>Scroll to break them</span><i></i></div>
+    <div class="tag">POC · concept, not an official TVK website</div>
+  </div>
+</section>
+<section class="next" aria-label="Next"><p>Ideology · 03</p><h3>Five guiding leaders</h3></section>
+<script>/*INLINE_JS*/</script>

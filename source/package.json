@@ -1,0 +1,7 @@
+{
+  "name": "tvk-concept-site",
+  "private": true,
+  "description": "TVK concept site (not an official TVK website). Build: python3 build.py",
+  "dependencies": { "three": "0.185.1", "three-bvh-csg": "0.0.18", "three-mesh-bvh": "0.9.16" },
+  "devDependencies": { "esbuild": "0.25.10" }
+}

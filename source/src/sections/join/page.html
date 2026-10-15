@@ -1,0 +1,100 @@
+<title>TVK · Join Us</title>
+<style>
+@font-face{font-family:"Cinzel";font-weight:700;font-display:swap;src:url(data:font/woff2;base64,__CINZEL700_B64__) format("woff2")}
+@font-face{font-family:"Cinzel";font-weight:500;font-display:swap;src:url(data:font/woff2;base64,__CINZEL500_B64__) format("woff2")}
+@font-face{font-family:"TamilSerif";font-weight:400;font-display:swap;src:url(data:font/woff2;base64,__NST400_B64__) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:"TamilSerif";font-weight:700;font-display:swap;src:url(data:font/woff2;base64,__NST700_B64__) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:"TamilSerif";font-weight:400;font-display:swap;src:url(data:font/woff2;base64,__NSTL400_B64__) format("woff2");unicode-range:U+0000-00FF,U+2013-2014,U+2018-201D,U+00B7,U+2026}
+:root{--gold:#f6c32e;--gold-hi:#ffe07a;--maroon:#8e1418;--maroon-d:#5c0a0e;--cream:#fff1d6;
+  --f-title:"Cinzel","Trajan Pro",Georgia,serif;--f-ta:"TamilSerif","Noto Serif Tamil",serif;--f-body:"TamilSerif",Georgia,serif;color-scheme:light}
+html,body{margin:0;background:var(--cream);color:#2a0b0c}
+.spacer{height:80svh;display:grid;place-items:center;font:700 12px/1 var(--f-title);letter-spacing:.3em;text-transform:uppercase;color:var(--maroon);background:linear-gradient(#fff7e6,var(--cream))}
+#join{position:relative;height:420svh}
+.pin{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--cream)}
+#join-stage{position:absolute;inset:0;cursor:default}
+#join-stage canvas{display:block;width:100%;height:100%}
+.pin::before,.pin::after{content:"";position:absolute;left:0;right:0;height:6px;z-index:6;background:linear-gradient(90deg,var(--maroon) 0 33%,var(--gold) 33% 66%,var(--maroon) 66%)}
+.pin::before{top:0}.pin::after{bottom:0}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(130% 100% at 50% 50%,transparent 62%,rgba(120,60,20,.18) 100%)}
+
+/* text panels: frosted cream cards, maroon type, gold hairlines */
+.panel{position:absolute;z-index:3;pointer-events:none;display:grid;gap:12px;justify-items:start;left:max(6vw,24px);top:50%;translate:0 -50%;width:min(440px,38vw);
+  padding:30px 32px 28px;border-radius:20px;background:rgba(255,249,238,.9);
+  border:1px solid rgba(217,168,48,.55);box-shadow:0 30px 80px rgba(92,10,14,.18);opacity:0;transform:translateY(14px);transition:opacity .7s,transform .8s cubic-bezier(.2,.7,.2,1)}
+.panel.in{opacity:1;transform:none}
+.panel > *{margin:0;opacity:0;transform:translateY(10px);transition:opacity .6s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.panel.in > *{opacity:1;transform:none}
+.panel.in > :nth-child(2){transition-delay:.08s}.panel.in > :nth-child(3){transition-delay:.16s}.panel.in > :nth-child(4){transition-delay:.24s}.panel.in > :nth-child(5){transition-delay:.32s}
+.k{display:flex;align-items:center;gap:12px;font:500 11px/1 var(--f-title);letter-spacing:.42em;text-transform:uppercase;color:#a87a12}
+.k::before{content:"";width:28px;height:1px;background:linear-gradient(90deg,transparent,#d9a830)}
+.ta{font:700 clamp(28px,2.9vw,44px)/1.25 var(--f-ta);color:var(--maroon-d);text-wrap:balance}
+.en{font:500 clamp(13px,1.05vw,15px)/1.4 var(--f-title);letter-spacing:.24em;text-transform:uppercase;color:var(--maroon)}
+.sub{font:400 clamp(14px,1.05vw,15px)/1.6 var(--f-body);color:#5a3a2e}
+#join-t1{left:50%;translate:-50% 0;top:auto;bottom:7svh;justify-items:center;text-align:center;width:min(520px,86vw);padding:24px 30px 22px}
+#join-t1 .ta{font-size:clamp(26px,2.5vw,38px)}
+#join-t1 .k::after{content:"";width:28px;height:1px;background:linear-gradient(90deg,#d9a830,transparent)}
+/* the "your place" label that follows the beacon */
+.label{position:absolute;z-index:4;left:0;top:0;pointer-events:none;opacity:0;transition:opacity .5s}
+.label.in{opacity:1}
+.label span{position:absolute;left:0;bottom:46px;translate:-50% 0;white-space:nowrap;font:700 12px/1 var(--f-title);letter-spacing:.24em;text-transform:uppercase;color:var(--maroon);background:var(--gold);padding:9px 14px 8px 17px;border-radius:999px;box-shadow:0 8px 24px rgba(92,10,14,.3);animation:bob 1.6s ease-in-out infinite}
+.label span::after{content:"";position:absolute;left:50%;bottom:-7px;translate:-50% 0;border:7px solid transparent;border-top-color:var(--gold);border-bottom:0}
+@keyframes bob{50%{transform:translateY(-6px)}}
+/* buttons */
+.btn{pointer-events:auto;display:inline-flex;align-items:center;gap:14px;border:1px solid rgba(255,224,122,.6);cursor:pointer;text-decoration:none;font:700 clamp(12px,1vw,14px)/1 var(--f-title);letter-spacing:.22em;text-transform:uppercase;
+  color:#ffe9a8;background:linear-gradient(180deg,#a3161c,var(--maroon-d));padding:17px 26px 16px 30px;border-radius:999px;box-shadow:0 12px 30px rgba(92,10,14,.28),inset 0 1px 0 rgba(255,255,255,.18);transition:transform .25s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(92,10,14,.36),inset 0 1px 0 rgba(255,255,255,.18)}
+.btn:focus-visible{outline:2px solid #d9a830;outline-offset:4px}
+.btn small{font:700 14px/1 var(--f-ta);letter-spacing:0;text-transform:none;color:#fff}
+.btn.big{font-size:clamp(14px,1.2vw,17px);padding:21px 34px 20px 38px}
+.social{display:flex;gap:10px;pointer-events:auto}
+.social a{font:500 11px/1 var(--f-title);letter-spacing:.2em;text-transform:uppercase;color:var(--maroon);text-decoration:none;padding:9px 2px;border-bottom:1px solid rgba(217,168,48,.7)}
+.social{gap:22px}
+.social a:hover{color:#a3161c}
+.panel:not(.in) .btn,.panel:not(.in) .social{pointer-events:none}
+.tag{position:absolute;z-index:5;left:16px;bottom:14px;font:700 10px/1.3 var(--f-title);letter-spacing:.08em;color:rgba(92,10,14,.55)}
+#join-done .ta{color:var(--maroon-d)}
+.next{height:60svh;display:grid;place-items:center;background:linear-gradient(var(--cream),#fff7e6);font:700 12px/1 var(--f-title);letter-spacing:.3em;text-transform:uppercase;color:rgba(142,20,24,.5)}
+@media (max-aspect-ratio:4/5){
+  .panel,#join-t1{left:18px;right:18px;width:auto;translate:none;top:auto;bottom:calc(14px + 4svh);justify-items:center;text-align:center}
+  #join-t2,#join-t3,#join-done{top:calc(14px + 3svh);bottom:auto}
+  #join-done{top:auto;bottom:calc(14px + 4svh)}
+  .tag{bottom:auto;top:14px}
+  .ta{font-size:26px}
+  .panel{padding:22px 22px 20px}
+}
+@media (prefers-reduced-motion:reduce){.panel > *{transition:none}.label span{animation:none}}
+</style>
+<div class="spacer">Scroll down ↓</div>
+<section id="join" aria-label="Join us">
+  <div class="pin">
+    <div id="join-stage" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="panel" id="join-t1">
+      <p class="k">Join us · இணையுங்கள்</p>
+      <h2 class="ta" lang="ta">உங்களுக்கான இடம் இங்கே</h2>
+      <p class="en">There's a place for you</p>
+    </div>
+    <div class="panel" id="join-t2">
+      <p class="k">எல்லோருக்கும் எல்லாம்</p>
+      <h2 class="ta" lang="ta">ஒவ்வொருவருக்கும் ஒரு இடம்</h2>
+      <p class="en">A place for everyone</p>
+    </div>
+    <div class="panel" id="join-t3">
+      <p class="k">Your place is waiting</p>
+      <h2 class="ta" lang="ta">உங்கள் இடத்தில் நில்லுங்கள்</h2>
+      <p class="sub">Tap the glowing place in the crowd, or use the button.</p>
+      <button class="btn" id="join-take" type="button">Take your place <small lang="ta">இணைய</small></button>
+    </div>
+    <div class="panel" id="join-done">
+      <p class="k">Welcome · வருக</p>
+      <h2 class="ta" lang="ta">நீங்களும் இந்தக் குடும்பத்தில் ஒருவர்</h2>
+      <p class="en">Welcome to the family</p>
+      <a class="btn big" href="https://tvk.family" target="_blank" rel="noopener">Join TVK <small lang="ta">கழகத்தில் இணையுங்கள்</small></a>
+      <p class="social"><a href="https://x.com/TVKPartyHQ" target="_blank" rel="noopener">X</a><a href="https://www.instagram.com/tvkpartyhq/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/tvkpartyhq" target="_blank" rel="noopener">Facebook</a></p>
+    </div>
+    <div class="label" id="join-label" aria-hidden="true"><span>Your place</span></div>
+    <div class="tag">POC · concept, not an official TVK website</div>
+  </div>
+</section>
+<section class="next" aria-label="End">End of site</section>
+<script>/*INLINE_JS*/</script>

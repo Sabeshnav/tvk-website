@@ -1,0 +1,152 @@
+<title>TVK Leadership</title>
+<style>
+:root{--bg-0:#0d0206;--bg-1:#2c060c;--bg-2:#5a0d16;--gold:#ffca00;--gold-hi:#ffe08a;--ink:#fff6e3;--ink-dim:rgba(255,246,227,.72);
+  --f-en:"Archivo","Arial Black",system-ui,sans-serif;--f-ta:"Catamaran","Noto Sans Tamil",system-ui,sans-serif;color-scheme:dark}
+body{margin:0;background:var(--bg-0);color:var(--ink);font-family:var(--f-en)}
+.spacer{height:80svh;display:grid;place-items:center;font:800 12px/1 var(--f-en);letter-spacing:.3em;text-transform:uppercase;color:rgba(255,224,138,.7)}
+/* one screen: locks on arrival, one swipe plays Vijay's sequence, then swipes move through the leaders */
+html.scroll-locked,html.scroll-locked body{overscroll-behavior:none}
+#leader{position:relative;height:100svh}
+.pin{position:relative;height:100svh;overflow:hidden;
+  background:radial-gradient(60% 70% at 50% 40%,#6e1018 0%,var(--bg-2) 25%,var(--bg-1) 60%,var(--bg-0) 100%)}
+/* the carousel: three full-screen slides side by side */
+.slides{position:absolute;inset:0;--k:0;transform:translateX(calc(var(--k) * -100%));transition:transform .95s cubic-bezier(.75,0,.18,1)}
+.slide{position:absolute;top:0;bottom:0;width:100%;left:calc(var(--i) * 100%);overflow:hidden}
+#leader-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* copy on the right (desktop) */
+.copy{position:absolute;z-index:2;right:clamp(20px,6vw,110px);top:50%;translate:0 -50%;width:min(40vw,560px);display:grid;gap:clamp(10px,1.4vw,18px);pointer-events:none}
+.copy > *{opacity:0;transform:translateX(60px);filter:blur(10px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1),filter .6s}
+.copy.in > *{opacity:1;transform:none;filter:none}
+.copy.in > *:nth-child(2){transition-delay:.08s}.copy.in > *:nth-child(3){transition-delay:.16s}.copy.in > *:nth-child(4){transition-delay:.24s}.copy.in > *:nth-child(5){transition-delay:.32s}
+.copy p,.copy h2{margin:0}
+.kicker{font:800 clamp(11px,1vw,13px)/1.2 var(--f-en);letter-spacing:.34em;text-transform:uppercase;color:var(--gold-hi)}
+.name{margin:0;font:900 clamp(48px,7vw,112px)/.95 var(--f-en);letter-spacing:-.01em;color:var(--gold);text-shadow:0 3px 0 #3a080e,0 14px 40px rgba(0,0,0,.45)}
+.name-ta{font:900 clamp(26px,3vw,44px)/1.1 var(--f-ta);color:var(--ink)}
+.rule{height:3px;width:min(240px,40vw);background:linear-gradient(90deg,var(--gold),rgba(255,202,0,0))}
+.role{font:600 clamp(14px,1.25vw,18px)/1.5 var(--f-en);color:var(--ink-dim);letter-spacing:.02em}
+.role b{display:block;font-weight:800;color:var(--ink)}
+/* leaders 02 and 03: photo cut-outs, a gold halo and a big outline numeral */
+.pslide .num{position:absolute;z-index:0;left:2vw;top:50%;translate:0 -54%;font:900 min(62svh,44vw)/1 var(--f-en);letter-spacing:-.04em;color:transparent;
+  -webkit-text-stroke:2px rgba(255,202,0,.22);opacity:0;transform:translateX(-8vw);transition:opacity .9s,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.pslide .halo{position:absolute;z-index:0;left:calc(var(--fx) - 30vw);bottom:-10svh;width:60vw;height:110svh;pointer-events:none;
+  background:radial-gradient(42% 46% at 50% 42%,rgba(255,176,46,.55),rgba(255,120,30,.16) 50%,transparent 72%);opacity:0;transition:opacity 1.2s .2s}
+.pslide .fig{position:absolute;z-index:1;margin:0;left:calc(var(--fx) - var(--fw) / 2);bottom:0;width:var(--fw);pointer-events:none;
+  opacity:0;transform:translateX(14vw) scale(.97);transform-origin:50% 100%;transition:opacity .7s .15s,transform 1.2s .1s cubic-bezier(.2,.7,.2,1)}
+.pslide .fig img{display:block;width:100%;height:auto;
+  -webkit-mask-image:linear-gradient(to top,transparent 0,#000 16%),linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);
+  -webkit-mask-composite:source-in;mask-image:linear-gradient(to top,transparent 0,#000 16%),linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%);mask-composite:intersect;
+  filter:drop-shadow(0 0 1px rgba(255,214,120,.7)) drop-shadow(0 0 22px rgba(255,170,50,.35)) contrast(1.04) saturate(1.05)}
+.pslide.cur .num{opacity:1;transform:none}.pslide.cur .halo{opacity:1}.pslide.cur .fig{opacity:1;transform:none}
+#leader-s1{--fx:30vw;--fw:min(50vw,90svh)}
+#leader-s2{--fx:30vw;--fw:min(44vw,80svh)}
+.pslide .grain{position:absolute;inset:-50%;pointer-events:none;opacity:.03;z-index:2;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* gold brush wipe that sweeps across between leaders */
+.wipe{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
+.wipe i{position:absolute;top:-20%;bottom:-20%;left:50%;width:46vw;margin-left:-23vw;transform:translateX(-160vw) skewX(-16deg);
+  background:linear-gradient(90deg,transparent 0,rgba(255,202,0,.0) 8%,#b8661a 22%,#f4bd4f 40%,#ffe8ae 52%,#f4bd4f 62%,#d9892a 80%,rgba(255,202,0,0) 94%,transparent);
+  box-shadow:0 0 80px rgba(255,180,46,.6);filter:blur(1px)}
+.wipe.go i{animation:leaderwipe .95s cubic-bezier(.75,0,.18,1)}
+.wipe.go.back i{animation-name:leaderwipeback}
+@keyframes leaderwipe{0%{transform:translateX(160vw) skewX(-16deg)}100%{transform:translateX(-160vw) skewX(-16deg)}}
+@keyframes leaderwipeback{0%{transform:translateX(-160vw) skewX(-16deg)}100%{transform:translateX(160vw) skewX(-16deg)}}
+/* carousel controls */
+.lnav{position:absolute;z-index:6;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);translate:-50% 0;display:flex;align-items:center;gap:6px;padding:6px;border-radius:999px;
+  background:rgba(13,2,6,.78);border:1px solid rgba(255,202,0,.28);opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .5s,transform .6s cubic-bezier(.2,.7,.2,1)}
+.lnav.in{opacity:1;transform:none;pointer-events:auto}
+.lnav button{appearance:none;border:0;cursor:pointer;background:transparent;color:var(--gold-hi);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;transition:background .25s,opacity .25s}
+.lnav button:hover{background:rgba(255,202,0,.14)}
+.lnav button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.lnav button[disabled]{opacity:.3;cursor:default;background:transparent}
+.lnav svg{width:18px;height:18px}
+.lnav ol{display:flex;gap:4px;margin:0;padding:0 4px;list-style:none}
+.lnav ol button{width:auto;height:44px;padding:0 6px;border-radius:999px;display:flex;align-items:center;gap:8px;font:800 11px/1 var(--f-en);letter-spacing:.2em;color:rgba(255,224,138,.55)}
+.lnav ol button i{display:block;width:8px;height:8px;border-radius:50%;background:rgba(255,224,138,.35);transition:all .35s}
+.lnav ol button span{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .5s cubic-bezier(.2,.7,.2,1)}
+.lnav ol button[aria-current="true"]{color:var(--gold-hi)}
+.lnav ol button[aria-current="true"] i{width:22px;border-radius:4px;background:var(--gold)}
+.lnav ol button[aria-current="true"] span{max-width:160px}
+.hint{position:absolute;z-index:6;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 28px);translate:-50% 0;display:grid;justify-items:center;gap:8px;
+  font:800 11px/1 var(--f-en);letter-spacing:.32em;text-transform:uppercase;color:var(--gold-hi);opacity:0;transition:opacity .4s;white-space:nowrap}
+.hint.in{opacity:1}.hint i{display:block;width:2px;height:30px;background:linear-gradient(var(--gold),transparent);animation:cue 1.4s ease-in-out infinite}
+.hint.side{left:auto;right:clamp(20px,6vw,110px);translate:none;bottom:calc(env(safe-area-inset-bottom,0px) + 96px);grid-auto-flow:column;align-items:center;gap:12px}
+.hint.side i{width:30px;height:2px;background:linear-gradient(90deg,transparent,var(--gold));animation:cueside 1.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+@keyframes cueside{0%{transform:scaleX(0);transform-origin:left}50%{transform:scaleX(1);transform-origin:left}51%{transform-origin:right}100%{transform:scaleX(0);transform-origin:right}}
+.next{height:100svh;display:grid;place-items:center;align-content:center;gap:12px;background:linear-gradient(var(--bg-0),#1a0408);text-align:center}
+.next p{margin:0;font:800 12px/1 var(--f-en);letter-spacing:.34em;text-transform:uppercase;color:var(--gold-hi)}
+.next h3{margin:0;font:900 clamp(32px,5vw,72px)/1 var(--f-en);color:rgba(255,246,227,.35)}
+.tag{position:absolute;left:16px;bottom:12px;z-index:7;font:600 11px/1.3 var(--f-en);color:rgba(255,246,227,.45)}
+/* phones: copy sits above the figure */
+@media (max-aspect-ratio:4/5){
+  .copy{left:20px;right:20px;top:calc(env(safe-area-inset-top,0px) + 72px);translate:none;width:auto;gap:8px;text-align:left}
+  .copy > *{transform:translateY(-24px)}
+  .name{font-size:min(15vw,64px)}
+  .pslide .name{font-size:min(13vw,56px)}
+  #leader-s1{--fx:50vw;--fw:min(104vw,62svh)}
+  #leader-s2{--fx:50vw;--fw:min(94vw,56svh)}
+  .pslide .num{left:auto;right:-4vw;top:auto;bottom:34svh;translate:none;font-size:46vw}
+  .pslide .halo{left:-20vw;width:140vw;height:80svh}
+  .lnav ol button span{display:none}
+  .hint.side{display:none}
+  .tag{top:12px;bottom:auto}
+}
+@media (prefers-reduced-motion:reduce){.copy > *,.slides,.pslide .fig,.pslide .num{transition:none}.hint i{animation:none}.wipe{display:none}}
+</style>
+<div class="spacer">Scroll down ↓</div>
+<section id="leader" aria-label="Leadership" aria-roledescription="carousel">
+  <div class="pin">
+    <div class="slides" id="leader-slides">
+      <div class="slide cur" id="leader-s0" style="--i:0" role="group" aria-roledescription="slide" aria-label="1 of 3">
+        <canvas id="leader-canvas" aria-hidden="true"></canvas>
+        <div class="copy" id="leader-copy">
+          <p class="kicker">Leadership · 01</p>
+          <h2 class="name">Vijay</h2>
+          <p class="name-ta" lang="ta">விஜய்</p>
+          <div class="rule" aria-hidden="true"></div>
+          <p class="role">Founder &amp; President, Tamilaga Vettri Kazhagam</p>
+        </div>
+      </div>
+      <div class="slide pslide" id="leader-s1" style="--i:1" role="group" aria-roledescription="slide" aria-label="2 of 3">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="num" aria-hidden="true">02</div>
+        <figure class="fig"><img src="data:image/webp;base64,__AADHAV_B64__" alt="Aadhav Arjuna" width="1441" height="1400" decoding="async"></figure>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="copy">
+          <p class="kicker">Leadership · 02</p>
+          <h2 class="name">Aadhav Arjuna</h2>
+          <p class="name-ta" lang="ta">ஆதவ் அர்ஜுனா</p>
+          <div class="rule" aria-hidden="true"></div>
+          <p class="role"><b>General Secretary, Election Campaign Management</b>MLA, Villivakkam</p>
+        </div>
+      </div>
+      <div class="slide pslide" id="leader-s2" style="--i:2" role="group" aria-roledescription="slide" aria-label="3 of 3">
+        <div class="halo" aria-hidden="true"></div>
+        <div class="num" aria-hidden="true">03</div>
+        <figure class="fig"><img src="data:image/webp;base64,__ANAND_B64__" alt="N. Anand" width="554" height="537" decoding="async"></figure>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="copy">
+          <p class="kicker">Leadership · 03</p>
+          <h2 class="name">N. Anand</h2>
+          <p class="name-ta" lang="ta">என். ஆனந்த்</p>
+          <div class="rule" aria-hidden="true"></div>
+          <p class="role"><b>General Secretary</b>Minister for Rural Development &amp; Water Resources · MLA, Thiyagarayanagar</p>
+        </div>
+      </div>
+    </div>
+    <div class="wipe" id="leader-wipe" aria-hidden="true"><i></i></div>
+    <div class="hint" id="leader-hint" aria-hidden="true"><span>Swipe</span><i></i></div>
+    <nav class="lnav" id="leader-nav" aria-label="Leaders">
+      <button type="button" data-step="-1" aria-label="Previous leader"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <ol>
+        <li><button type="button" data-go="0" aria-label="Vijay"><i></i><span>Vijay</span></button></li>
+        <li><button type="button" data-go="1" aria-label="Aadhav Arjuna"><i></i><span>Aadhav Arjuna</span></button></li>
+        <li><button type="button" data-go="2" aria-label="N. Anand"><i></i><span>N. Anand</span></button></li>
+      </ol>
+      <button type="button" data-step="1" aria-label="Next leader"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </nav>
+    <div class="tag">POC · concept, not an official TVK website</div>
+  </div>
+</section>
+<section class="next" aria-label="Next">Next section</section>
+<script>/*INLINE_JS*/</script>

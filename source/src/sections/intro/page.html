@@ -1,0 +1,38 @@
+<title>Brass Whistle 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&display=swap">
+<style>
+/* Layout: one full-screen stage; the whistle is rendered live in WebGL over a maroon studio sweep */
+:root{
+  --bg-0:#12030a; --bg-1:#3a0a12; --bg-2:#5a0d16;
+  --gold:#f2b705; --ink:#fff6e3; --ink-dim:rgba(255,246,227,.68);
+  --font:"Archivo","Arial Black",system-ui,sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--bg-0);color:var(--ink);font-family:var(--font);overflow:hidden}
+.wrap{position:fixed;inset:0;background:radial-gradient(70% 60% at 50% 42%,var(--bg-2) 0%,var(--bg-1) 45%,var(--bg-0) 100%)}
+.wrap::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.55) 100%)}
+#stage{position:absolute;inset:0;touch-action:none;cursor:grab}
+#stage:active{cursor:grabbing}
+#stage canvas{display:block;width:100%;height:100%}
+.label{position:absolute;left:clamp(16px,4vw,40px);top:calc(env(safe-area-inset-top,0px) + 20px);z-index:2;display:grid;gap:4px;pointer-events:none}
+.label b{font:900 13px/1 var(--font);letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.label span{font:600 13px/1.3 var(--font);color:var(--ink-dim)}
+.bar{position:absolute;left:0;right:0;bottom:calc(env(safe-area-inset-bottom,0px) + 22px);z-index:2;display:flex;justify-content:center;align-items:center;gap:14px;padding:0 16px;flex-wrap:wrap}
+.hint{font:600 13px/1.3 var(--font);color:var(--ink-dim);letter-spacing:.04em}
+button{font:800 13px/1 var(--font);letter-spacing:.06em;color:var(--gold);background:rgba(18,3,10,.4);border:1.5px solid rgba(242,183,5,.6);border-radius:999px;padding:11px 18px;min-height:44px;cursor:pointer;backdrop-filter:blur(6px)}
+button:hover{background:rgba(242,183,5,.12)}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.fallback{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;color:var(--ink-dim);font:600 15px/1.5 var(--font)}
+</style>
+<div class="wrap">
+  <div id="stage" aria-label="3D brass whistle. Drag to turn it."></div>
+  <div class="label"><b>Brass whistle</b><span>Real-time 3D, built in code</span></div>
+  <div class="bar">
+    <span class="hint">Drag to turn it</span>
+    <button id="spin" type="button" aria-pressed="true">Pause spin</button>
+  </div>
+</div>
+<script>/*INLINE_JS*/</script>

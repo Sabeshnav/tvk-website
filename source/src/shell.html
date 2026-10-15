@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en" class="intro-on">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#5a0d16">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%238e1418%27/%3E%3Crect y=%2711%27 width=%2732%27 height=%2710%27 fill=%27%23ffca00%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%273.4%27 fill=%27%238e1418%27/%3E%3C/svg%3E">
+<title>Tamilaga Vettri Kazhagam · Concept</title>
+<meta name="description" content="An immersive scroll concept for Tamilaga Vettri Kazhagam. Concept only, not an official TVK website.">
+<style>
+/*FONTS*/
+:root{--s-bg:#0d0206;--s-maroon:#8e1418;--s-maroon-d:#5c0a0e;--s-gold:#ffca00;--s-gold-hi:#ffe08a;--s-cream:#fff7e6;--s-ink:#fff6e3;
+  --s-en:"Archivo","Arial Black",system-ui,sans-serif;--s-ta:"Catamaran","Noto Sans Tamil",system-ui,sans-serif;--s-title:"Cinzel","Trajan Pro",Georgia,serif;--s-tas:"TamilSerif","Noto Serif Tamil",serif}
+html{background:var(--s-bg);scrollbar-width:thin;scrollbar-color:var(--s-gold) var(--s-bg);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--s-bg);color:var(--s-ink);font-family:var(--s-en);overflow-x:clip}
+html.intro-on,html.intro-on body{overflow:hidden;height:100%}
+html{scrollbar-gutter:stable}
+html.scroll-locked,html.scroll-locked body{overscroll-behavior:none}
+.chap{position:relative}
+.skip-link{position:fixed;left:12px;top:-60px;z-index:200;padding:10px 14px;border-radius:8px;background:var(--s-gold);color:#3a080e;font:800 13px/1 var(--s-en);text-decoration:none}
+.skip-link:focus{top:12px}
+
+/* ---------------- intro ---------------- */
+#intro{position:fixed;inset:0;z-index:100;--r:0vmax;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:pointer;
+  background:radial-gradient(70% 60% at 50% 42%,#5a0d16 0%,#3a0a12 45%,#12030a 100%);
+  -webkit-mask-image:radial-gradient(circle at 50% 46%,transparent var(--r),#000 calc(var(--r) + 1px));mask-image:radial-gradient(circle at 50% 46%,transparent var(--r),#000 calc(var(--r) + 1px))}
+#intro::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.55) 100%)}
+#intro-stage{position:absolute;inset:0}
+#intro-stage canvas{display:block;width:100%;height:100%}
+.i-top{position:absolute;z-index:2;left:0;right:0;top:calc(env(safe-area-inset-top,0px) + 7svh);display:grid;justify-items:center;gap:10px;text-align:center;pointer-events:none;padding:0 16px}
+.i-top p{margin:0}
+.i-k{font:800 11px/1 var(--s-en);letter-spacing:.42em;text-transform:uppercase;color:rgba(255,224,138,.8)}
+.i-ta{font:900 clamp(26px,3.4vw,48px)/1.1 var(--s-ta);color:var(--s-gold);text-shadow:0 3px 0 #3a080e,0 12px 40px rgba(0,0,0,.45)}
+.i-hold{position:absolute;z-index:2;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 9svh);translate:-50% 0;display:grid;justify-items:center;gap:14px;pointer-events:none;text-align:center}
+.i-btn{position:relative;width:96px;height:96px;display:grid;place-items:center}
+.i-btn svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.i-btn circle{fill:none;stroke-width:3}
+.i-btn .track{stroke:rgba(255,224,138,.22)}
+.i-btn .fill{stroke:var(--s-gold);stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(255,202,0,.7))}
+.i-btn b{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,rgba(255,224,138,.22),rgba(255,202,0,.06));border:1px solid rgba(255,224,138,.35);
+  font:800 11px/1 var(--s-en);letter-spacing:.24em;text-transform:uppercase;color:var(--s-gold-hi);transition:transform .3s}
+#intro.holding .i-btn b{transform:scale(.9)}
+#intro.loading .i-btn .fill{stroke:rgba(255,224,138,.55);filter:none}
+#intro.loading .i-say,#intro.loading #intro-skip{opacity:.35}
+#intro.loading{cursor:progress}
+.i-btn::before{content:"";position:absolute;inset:-10px;border-radius:50%;border:1px solid rgba(255,202,0,.35);animation:ipulse 2s ease-out infinite}
+@keyframes ipulse{0%{transform:scale(.8);opacity:.9}100%{transform:scale(1.35);opacity:0}}
+.i-say{font:800 12px/1.4 var(--s-en);letter-spacing:.22em;text-transform:uppercase;color:var(--s-ink)}
+.i-say span{display:block;margin-top:6px;font:800 15px/1.2 var(--s-ta);letter-spacing:0;text-transform:none;color:rgba(255,246,227,.7)}
+#intro-skip{position:absolute;z-index:3;right:clamp(14px,3vw,32px);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);appearance:none;cursor:pointer;background:transparent;border:0;padding:12px 6px;
+  font:800 11px/1 var(--s-en);letter-spacing:.3em;text-transform:uppercase;color:rgba(255,246,227,.6);border-bottom:1px solid rgba(255,224,138,.35)}
+#intro-skip:hover{color:var(--s-gold-hi)}
+#intro-skip:focus-visible{outline:2px solid var(--s-gold);outline-offset:4px}
+.i-tag{position:absolute;z-index:3;left:clamp(14px,3vw,32px);bottom:calc(env(safe-area-inset-bottom,0px) + 30px);font:600 11px/1.3 var(--s-en);color:rgba(255,246,227,.45);max-width:52vw}
+#intro.blown .i-top,#intro.blown .i-hold,#intro.blown #intro-skip,#intro.blown .i-tag{opacity:0;transition:opacity .25s}
+.i-burst{position:absolute;z-index:1;left:50%;top:46%;width:40vmin;height:40vmin;margin:-20vmin 0 0 -20vmin;border-radius:50%;border:3px solid var(--s-gold);opacity:0;pointer-events:none}
+#intro.blown:not(.skipped) .i-burst{animation:iburst 1s cubic-bezier(.1,.7,.2,1) forwards}
+#intro.blown:not(.skipped) .i-burst:nth-of-type(2){animation-delay:.1s;border-color:#fff1c4}
+#intro.blown:not(.skipped) .i-burst:nth-of-type(3){animation-delay:.2s;border-width:2px}
+@keyframes iburst{0%{transform:scale(.2);opacity:1}100%{transform:scale(3.4);opacity:0}}
+#intro .i-flash{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(circle at 50% 46%,rgba(255,236,170,.75),transparent 55%);opacity:0}
+#intro.blown:not(.skipped) .i-flash{animation:iflash .6s ease-out}
+@keyframes iflash{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+
+/* ---------------- top bar ---------------- */
+.s-bar{position:fixed;z-index:60;left:0;right:0;top:0;height:3px;pointer-events:none}
+.s-bar i{display:block;height:100%;width:100%;transform:scaleX(var(--p,0));transform-origin:left;background:linear-gradient(90deg,var(--s-maroon),var(--s-gold) 40%,var(--s-gold-hi))}
+.site-nav{position:fixed;z-index:50;left:50%;top:calc(env(safe-area-inset-top,0px) + 12px);translate:-50% 0;width:min(1100px,calc(100vw - 24px));display:flex;align-items:center;gap:8px;padding:6px 6px 6px 16px;box-sizing:border-box;
+  border-radius:999px;background:rgba(36,4,8,.86);border:1px solid rgba(255,202,0,.22);box-shadow:0 10px 30px rgba(0,0,0,.25);
+  transition:transform .5s cubic-bezier(.2,.7,.2,1),opacity .4s}
+.site-nav.hide,html.scroll-locked .site-nav,html.intro-on .site-nav{transform:translateY(calc(-100% - 24px));opacity:0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--s-gold);margin-right:auto;min-height:44px}
+.brand svg{width:30px;height:30px;flex:none}
+.brand b{font:900 15px/1 var(--s-en);letter-spacing:.14em}
+.brand small{display:block;margin-top:3px;font:600 9px/1 var(--s-en);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,246,227,.55)}
+.links{display:flex;gap:2px;margin:0;padding:0;list-style:none}
+.links a{display:flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;text-decoration:none;font:800 12px/1 var(--s-en);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,246,227,.78);transition:color .25s,background .25s}
+.links a:hover{color:var(--s-gold-hi);background:rgba(255,202,0,.1)}
+.links a[aria-current="true"]{color:var(--s-gold)}
+.join-pill{display:flex;align-items:center;gap:10px;min-height:44px;padding:0 20px;border-radius:999px;text-decoration:none;font:900 12px/1 var(--s-en);letter-spacing:.16em;text-transform:uppercase;color:#3a080e;
+  background:linear-gradient(180deg,#ffe08a,var(--s-gold));box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 18px rgba(255,202,0,.25);transition:transform .25s}
+.join-pill:hover{transform:translateY(-1px)}
+.menu-btn{display:none;appearance:none;border:0;background:transparent;color:var(--s-gold-hi);width:44px;height:44px;border-radius:50%;cursor:pointer;place-items:center}
+.menu-btn svg{width:22px;height:22px}
+:is(.links a,.join-pill,.menu-btn,.brand,.dots button,.foot a,.foot button):focus-visible{outline:2px solid var(--s-gold);outline-offset:3px}
+/* phone menu sheet */
+.sheet{position:fixed;inset:0;z-index:70;display:grid;align-content:center;justify-items:center;gap:6px;background:rgba(20,2,6,.97);opacity:0;pointer-events:none;transition:opacity .35s}
+.sheet.open{opacity:1;pointer-events:auto}
+.sheet a{display:grid;justify-items:center;gap:4px;padding:12px 20px;text-decoration:none;color:var(--s-ink);font:900 28px/1 var(--s-en);letter-spacing:.02em;transform:translateY(12px);opacity:0;transition:transform .45s cubic-bezier(.2,.7,.2,1),opacity .45s}
+.sheet a small{font:800 14px/1 var(--s-ta);color:rgba(255,224,138,.75)}
+.sheet.open a{transform:none;opacity:1}
+.sheet.open a:nth-child(2){transition-delay:.04s}.sheet.open a:nth-child(3){transition-delay:.08s}.sheet.open a:nth-child(4){transition-delay:.12s}.sheet.open a:nth-child(5){transition-delay:.16s}
+.sheet .x{position:absolute;right:16px;top:calc(env(safe-area-inset-top,0px) + 16px);appearance:none;border:0;background:transparent;color:var(--s-gold-hi);width:44px;height:44px;cursor:pointer}
+.sheet .tagline{margin-top:20px;font:600 11px/1.4 var(--s-en);color:rgba(255,246,227,.45);text-align:center;padding:0 24px}
+/* chapter dots */
+.dots{position:fixed;z-index:40;right:14px;top:50%;translate:0 -50%;margin:0;padding:8px 0;list-style:none;display:grid;gap:4px;transition:opacity .4s}
+html.intro-on .dots,html.scroll-locked .dots{opacity:0;pointer-events:none}
+.dots button{appearance:none;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:flex-end;gap:10px;height:28px;padding:0 4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,224,138,.85);box-shadow:0 0 0 1.5px rgba(92,10,14,.55);transition:all .35s}
+.dots span{font:800 10px/1 var(--s-en);letter-spacing:.2em;text-transform:uppercase;color:#fff;background:rgba(36,4,8,.7);padding:6px 8px;border-radius:6px;opacity:0;transform:translateX(6px);transition:all .3s;pointer-events:none;white-space:nowrap}
+.dots button:hover span,.dots button:focus-visible span{opacity:1;transform:none}
+.dots button[aria-current="true"] i{height:22px;border-radius:4px;background:var(--s-gold)}
+/* jump curtain */
+.curtain{position:fixed;inset:0;z-index:90;pointer-events:none;background:linear-gradient(100deg,var(--s-maroon-d),var(--s-maroon) 45%,var(--s-gold) 50%,var(--s-maroon) 55%,var(--s-maroon-d));
+  transform:translateX(105%);}
+.curtain.in{transform:none;transition:transform .38s cubic-bezier(.7,0,.3,1)}
+.curtain.out{transform:translateX(-105%);transition:transform .45s cubic-bezier(.7,0,.3,1)}
+
+/* ---------------- chapter bridges ---------------- */
+.bridge{position:relative;display:grid;place-items:center;text-align:center;padding:0 20px;overflow:hidden}
+.bridge .bin{display:grid;justify-items:center;gap:12px}
+.bridge .bin > *{margin:0;opacity:0;transform:translateY(24px);filter:blur(8px);transition:opacity .9s,transform 1s cubic-bezier(.2,.7,.2,1),filter .9s}
+.bridge.in .bin > *{opacity:1;transform:none;filter:none}
+.bridge.in .bin > :nth-child(2){transition-delay:.1s}.bridge.in .bin > :nth-child(3){transition-delay:.2s}.bridge.in .bin > :nth-child(4){transition-delay:.3s}
+.bridge .bn{font:900 clamp(64px,9vw,140px)/.9 var(--s-en);color:transparent;-webkit-text-stroke:1.5px rgba(255,202,0,.55)}
+.bridge .bk{display:flex;align-items:center;gap:14px;font:800 12px/1 var(--s-en);letter-spacing:.42em;text-transform:uppercase;color:var(--s-gold-hi)}
+.bridge .bk::before,.bridge .bk::after{content:"";width:34px;height:1px;background:currentColor;opacity:.6}
+.bridge h2{font:900 clamp(34px,4.6vw,72px)/1.15 var(--s-ta);color:var(--s-ink)}
+.bridge .bs{font:600 clamp(14px,1.2vw,17px)/1.5 var(--s-en);color:rgba(255,246,227,.7)}
+#b-leader{height:70svh;background:linear-gradient(#0d0206,#1a0408 50%,#0d0206)}
+/* Ideology opens into morning light: maroon night -> saffron -> the Kural's warm cream, then dusk into the pledge */
+#b-ideology{height:110svh;background:linear-gradient(#0d0206 0%,#3a0a10 20%,#8e1418 40%,#d9773a 60%,#f3c27a 80%,#fbe9c6 100%)}
+#b-ideology .bin{position:sticky;top:30svh}
+#b-ideology .bn{-webkit-text-stroke-color:rgba(255,247,230,.8)}
+#b-ideology .bk{color:#fff}#b-ideology .bs{color:rgba(255,250,240,.92)}
+#b-ideology h2{font-family:var(--s-tas);font-weight:700;color:#fff;text-shadow:0 3px 0 #5c0a0e,0 16px 40px rgba(92,10,14,.4)}
+#b-pledge{height:60svh;background:linear-gradient(#f1cf95 0%,#c8803c 30%,#5a2a10 65%,#1a0f08 88%,#0b0604 100%)}
+#b-journey{height:130svh;background:linear-gradient(#0b0604 0%,#3a0a10 22%,#8e1418 44%,#d9661a 62%,#f6c32e 78%,#ffe7b0 92%,#fff7e6 100%)}
+#b-journey .bin{position:sticky;top:30svh}
+#b-journey .bn{-webkit-text-stroke-color:rgba(255,247,230,.8)}
+#b-journey h2{font-family:var(--s-tas);font-weight:700;color:#fff;text-shadow:0 3px 0 #5c0a0e,0 16px 40px rgba(92,10,14,.4)}
+#b-journey .bk{color:#fff}#b-journey .bs{color:rgba(255,250,240,.9)}
+#b-join{height:60svh;background:linear-gradient(#fff7e6,#fff1d6)}
+#b-join .bn{-webkit-text-stroke-color:rgba(142,20,24,.5)}
+#b-join .bk{color:#8e1418}
+#b-join h2{font-family:var(--s-tas);font-weight:700;color:#5c0a0e}
+#b-join .bs{color:#5a3a2e}
+.bridge .sun{position:absolute;left:50%;bottom:-30svh;width:120vmax;height:120vmax;margin-left:-60vmax;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,236,170,.75),rgba(255,190,80,.25) 30%,transparent 60%);opacity:.9}
+
+/* ---------------- footer ---------------- */
+.foot{position:relative;padding:clamp(56px,9svh,110px) clamp(20px,6vw,90px) calc(env(safe-area-inset-bottom,0px) + 28px);background:radial-gradient(80% 90% at 50% 0%,#6e1018,#3a080e 55%,#1a0408);color:var(--s-ink);overflow:hidden}
+.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:linear-gradient(90deg,var(--s-maroon) 0 33%,var(--s-gold) 33% 66%,var(--s-maroon) 66%)}
+.foot-in{max-width:1100px;margin:0 auto;display:grid;gap:clamp(28px,4svh,44px)}
+.foot h2{margin:0;font:900 clamp(36px,5.4vw,84px)/1.08 var(--s-ta);color:var(--s-gold);text-shadow:0 3px 0 #2a0508}
+.foot .motto{margin:10px 0 0;font:800 clamp(16px,1.5vw,20px)/1.4 var(--s-ta);color:var(--s-ink)}
+.foot .motto em{font:600 .8em/1 var(--s-en);font-style:normal;letter-spacing:.06em;color:rgba(255,246,227,.65)}
+.foot-row{display:flex;flex-wrap:wrap;gap:18px 34px;align-items:center}
+.foot-row nav{display:flex;flex-wrap:wrap;gap:4px 22px}
+.foot-row nav a,.foot-row nav button{appearance:none;background:none;border:0;cursor:pointer;padding:10px 0;text-decoration:none;font:800 12px/1 var(--s-en);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,246,227,.8);border-bottom:1px solid rgba(255,202,0,.35)}
+.foot-row nav a:hover,.foot-row nav button:hover{color:var(--s-gold-hi)}
+.foot .fine{margin:0;padding-top:22px;border-top:1px solid rgba(255,202,0,.18);font:600 12px/1.6 var(--s-en);color:rgba(255,246,227,.55);max-width:820px}
+.foot .fine b{color:rgba(255,246,227,.8)}
+
+@media (max-width:900px){
+  .links,.site-nav .join-pill{display:none}
+  .menu-btn{display:grid}
+  .site-nav{width:auto;left:12px;right:12px;translate:none;padding:4px 4px 4px 12px}
+  .dots{display:none}
+}
+@media (prefers-reduced-motion:reduce){.bridge .bin > *{transition:none}.i-btn::before{animation:none}.curtain{display:none}}
+/*SECTION_CSS*/
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div id="intro" role="dialog" aria-label="Intro: hold to blow the whistle">
+  <div id="intro-stage" aria-hidden="true"></div>
+  <div class="i-flash" aria-hidden="true"></div>
+  <span class="i-burst" aria-hidden="true"></span><span class="i-burst" aria-hidden="true"></span><span class="i-burst" aria-hidden="true"></span>
+  <div class="i-top"><p class="i-k">Tamilaga Vettri Kazhagam</p><p class="i-ta" lang="ta">தமிழக வெற்றிக் கழகம்</p></div>
+  <div class="i-hold">
+    <div class="i-btn" aria-hidden="true"><svg viewBox="0 0 100 100"><circle class="track" cx="50" cy="50" r="46"/><circle class="fill" id="intro-ring" cx="50" cy="50" r="46"/></svg><b>Hold</b></div>
+    <p class="i-say">Press &amp; hold to blow the whistle<span lang="ta">விசிலை ஊதுங்கள்</span></p>
+  </div>
+  <button id="intro-skip" type="button">Skip intro</button>
+  <p class="i-tag">Concept, not an official TVK website</p>
+</div>
+
+<div class="s-bar" aria-hidden="true"><i id="site-progress"></i></div>
+<header class="site-nav" id="site-nav">
+  <a class="brand" href="#c-hero" data-jump="hero" aria-label="TVK concept, back to top">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="8" fill="#8e1418" stroke="#ffca00" stroke-opacity=".5"/><rect x="1" y="11.5" width="30" height="9" fill="#ffca00"/><circle cx="16" cy="16" r="3.2" fill="#8e1418"/></svg>
+    <span><b>TVK</b><small>Concept</small></span>
+  </a>
+  <ul class="links">
+    <li><a href="#c-leader" data-jump="leader">Leadership</a></li>
+    <li><a href="#c-ideology" data-jump="ideology">Ideology</a></li>
+    <li><a href="#c-journey" data-jump="journey">Journey</a></li>
+    <li><a href="#c-join" data-jump="join">Join us</a></li>
+  </ul>
+  <a class="join-pill" href="https://tvk.family" target="_blank" rel="noopener">Join TVK</a>
+  <button class="menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sheet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+</header>
+<div class="sheet" id="sheet" aria-hidden="true">
+  <button class="x" id="sheet-x" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <a href="#c-hero" data-jump="hero">Home<small lang="ta">முகப்பு</small></a>
+  <a href="#c-leader" data-jump="leader">Leadership<small lang="ta">தலைமை</small></a>
+  <a href="#c-ideology" data-jump="ideology">Ideology<small lang="ta">கொள்கை</small></a>
+  <a href="#c-journey" data-jump="journey">Journey<small lang="ta">பயணம்</small></a>
+  <a href="#c-join" data-jump="join">Join us<small lang="ta">இணையுங்கள்</small></a>
+  <p class="tagline">Concept, not an official TVK website</p>
+</div>
+<ol class="dots" id="dots" aria-label="Chapters">
+  <li><button type="button" data-jump="hero"><span>Home</span><i></i></button></li>
+  <li><button type="button" data-jump="leader"><span>Leadership</span><i></i></button></li>
+  <li><button type="button" data-jump="ideology"><span>Ideology</span><i></i></button></li>
+  <li><button type="button" data-jump="journey"><span>Journey</span><i></i></button></li>
+  <li><button type="button" data-jump="join"><span>Join us</span><i></i></button></li>
+</ol>
+<div class="curtain" id="curtain" aria-hidden="true"></div>
+
+<main id="main">
+  <div class="chap" id="c-hero" data-chap="hero"><!--SEC:hero--></div>
+
+  <div class="bridge" id="b-leader" data-chap="leader"><div class="bin"><p class="bn" aria-hidden="true">02</p><p class="bk">Leadership</p><h2 lang="ta">தலைமை</h2><p class="bs">The people leading the movement</p></div></div>
+  <div class="chap" id="c-leader" data-chap="leader"><!--SEC:leader--></div>
+
+  <div class="bridge" id="b-ideology" data-chap="ideology"><div class="sun" aria-hidden="true"></div><div class="bin"><p class="bn" aria-hidden="true">03</p><p class="bk">Ideology</p><h2 lang="ta">கொள்கை</h2><p class="bs">What we stand for</p></div></div>
+  <div class="chap" id="c-kural" data-chap="ideology"><!--SEC:kural--></div>
+  <div class="band" id="b-pledge" aria-hidden="true"></div>
+  <div class="chap" id="c-pledge" data-chap="ideology"><!--SEC:pledge--></div>
+
+  <div class="bridge" id="b-journey" data-chap="journey"><div class="sun" aria-hidden="true"></div><div class="bin"><p class="bn" aria-hidden="true">04</p><p class="bk">Our Journey</p><h2 lang="ta">முதல் அடியிலிருந்து இன்று வரை</h2><p class="bs">From the first step to today</p></div></div>
+  <div class="chap" id="c-journey" data-chap="journey"><!--SEC:journey--></div>
+
+  <div class="bridge" id="b-join" data-chap="join"><div class="bin"><p class="bn" aria-hidden="true">05</p><p class="bk">Join us</p><h2 lang="ta">நீங்களும் வாருங்கள்</h2><p class="bs">Be part of the movement</p></div></div>
+  <div class="chap" id="c-join" data-chap="join"><!--SEC:join--></div>
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <div>
+      <h2 lang="ta">தமிழக வெற்றிக் கழகம்</h2>
+      <p class="motto" lang="ta">எல்லோருக்கும் எல்லாம் · <em>Everything for everyone</em></p>
+    </div>
+    <div class="foot-row">
+      <a class="join-pill" href="https://tvk.family" target="_blank" rel="noopener">Join TVK</a>
+      <nav aria-label="Social">
+        <a href="https://x.com/TVKPartyHQ" target="_blank" rel="noopener">X</a>
+        <a href="https://www.instagram.com/tvkpartyhq/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/tvkpartyhq" target="_blank" rel="noopener">Facebook</a>
+        <button type="button" data-jump="hero">Back to top ↑</button>
+      </nav>
+    </div>
+    <p class="fine"><b>Concept website.</b> This is a design concept and not an official website of Tamilaga Vettri Kazhagam; it is not affiliated with or endorsed by the party. Wording is placeholder. Portraits are used for concept purposes only. Join TVK opens the official membership site.</p>
+  </div>
+</footer>
+<script>/*INLINE_JS*/</script>
+</body>
+</html>

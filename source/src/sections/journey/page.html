@@ -1,0 +1,101 @@
+<title>TVK · Our Journey</title>
+<style>
+@font-face{font-family:"Cinzel";font-weight:700;font-display:swap;src:url(data:font/woff2;base64,__CINZEL700_B64__) format("woff2")}
+@font-face{font-family:"Cinzel";font-weight:500;font-display:swap;src:url(data:font/woff2;base64,__CINZEL500_B64__) format("woff2")}
+@font-face{font-family:"TamilSerif";font-weight:400;font-display:swap;src:url(data:font/woff2;base64,__NST400_B64__) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:"TamilSerif";font-weight:700;font-display:swap;src:url(data:font/woff2;base64,__NST700_B64__) format("woff2");unicode-range:U+0B80-0BFF,U+200C-200D,U+25CC}
+@font-face{font-family:"TamilSerif";font-weight:400;font-display:swap;src:url(data:font/woff2;base64,__NSTL400_B64__) format("woff2");unicode-range:U+0000-00FF,U+2013-2014,U+2018-201D,U+00B7,U+20B9,U+2026}
+:root{--bg:#7a0f14;--gold:#f6c32e;--gold-hi:#ffe07a;--maroon:#8e1418;--maroon-d:#5c0a0e;--ink:#fffaf0;--ink-dim:rgba(255,250,240,.88);
+  --f-title:"Cinzel","Trajan Pro",Georgia,serif;--f-ta:"TamilSerif","Noto Serif Tamil",serif;--f-body:"TamilSerif",Georgia,serif;color-scheme:light}
+html,body{margin:0;background:#fff7e6;color:#2a0b0c}
+.spacer{height:80svh;display:grid;place-items:center;font:500 12px/1 var(--f-title);letter-spacing:.3em;text-transform:uppercase;color:var(--maroon);background:linear-gradient(#fff7e6,#ffe7b0)}
+#journey{position:relative;height:1500svh}
+.pin{position:sticky;top:0;height:100svh;overflow:hidden;background:#9fd0ff}
+#journey-stage{position:absolute;inset:0}
+#journey-stage canvas{display:block;width:100%;height:100%}
+.grain{position:absolute;inset:-50%;pointer-events:none;opacity:.03;will-change:transform;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%,100%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,3%)}}
+.vignette{position:absolute;inset:0;pointer-events:none;background:radial-gradient(130% 100% at 50% 45%,transparent 62%,rgba(92,10,14,.28) 100%)}
+/* party-colour frame: a thin maroon/yellow band top and bottom */
+.pin::before,.pin::after{content:"";position:absolute;left:0;right:0;height:6px;z-index:6;background:linear-gradient(90deg,var(--maroon) 0 33%,var(--gold) 33% 66%,var(--maroon) 66%)}
+.pin::before{top:0}.pin::after{bottom:0}
+
+/* intro + outro titles */
+.title{position:absolute;z-index:3;left:0;right:0;top:50%;translate:0 -50%;text-align:center;pointer-events:none;display:grid;gap:12px;justify-items:center}
+.title > *{margin:0;opacity:0;transform:translateY(18px) scale(.98);filter:blur(8px);transition:opacity .8s,transform .9s cubic-bezier(.2,.7,.2,1),filter .8s}
+.title.in > *{opacity:1;transform:none;filter:none}
+.title.in > :nth-child(2){transition-delay:.1s}.title.in > :nth-child(3){transition-delay:.22s}.title.in > :nth-child(4){transition-delay:.36s}
+.title .k{font:700 clamp(11px,1vw,13px)/1 var(--f-title);letter-spacing:.42em;text-transform:uppercase;color:var(--maroon);background:var(--gold);padding:8px 14px 7px 18px;border-radius:999px;box-shadow:0 6px 20px rgba(92,10,14,.25)}
+.title .ta{font:700 clamp(46px,7vw,110px)/1.1 var(--f-ta);color:#fff;-webkit-text-stroke:0;text-shadow:0 3px 0 var(--maroon),0 6px 0 var(--maroon-d),0 18px 40px rgba(92,10,14,.45)}
+.title .en{font:700 clamp(15px,1.7vw,22px)/1 var(--f-title);letter-spacing:.32em;text-transform:uppercase;color:#fff;background:var(--maroon);padding:9px 18px 8px 22px;border-radius:4px}
+.title .cue{margin-top:12svh;font:700 11px/1 var(--f-title);letter-spacing:.32em;text-transform:uppercase;color:var(--maroon);display:grid;justify-items:center;gap:10px;text-shadow:0 1px 8px rgba(255,255,255,.7)}
+.title .cue i{display:block;width:3px;height:30px;border-radius:2px;background:linear-gradient(var(--maroon),transparent);animation:cue 1.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+#journey-outro{top:30%}
+#journey-outro .ta{color:var(--gold-hi);text-shadow:0 3px 0 var(--maroon),0 6px 0 var(--maroon-d),0 20px 50px rgba(92,10,14,.5)}
+
+/* milestone cards: maroon glass panels with a yellow edge */
+.cards{position:absolute;inset:0;z-index:3;pointer-events:none}
+.card{position:absolute;top:50%;width:min(430px,34vw);translate:0 -50%;margin:0;padding:26px 28px 24px;border-radius:18px;
+  background:linear-gradient(160deg,rgba(142,20,24,.93),rgba(92,10,14,.9));
+  border-top:4px solid var(--gold);box-shadow:0 24px 60px rgba(60,5,8,.35);opacity:0;transform:translateY(24px) scale(.97);transition:opacity .45s,transform .55s cubic-bezier(.2,.8,.2,1)}
+.card.in{opacity:1;transform:none}
+.card.left{left:max(5vw,24px)}.card.right{right:max(5vw,24px)}
+.card > *{margin:0;opacity:0;transform:translateY(12px);transition:opacity .45s,transform .55s cubic-bezier(.2,.7,.2,1)}
+.card.in > *{opacity:1;transform:none}
+.card.in > :nth-child(2){transition-delay:.06s}.card.in > :nth-child(3){transition-delay:.12s}.card.in > :nth-child(4){transition-delay:.18s}.card.in > :nth-child(5){transition-delay:.24s}
+.card .yr{position:absolute;top:-0.62em;right:18px;font:700 clamp(70px,7.4vw,112px)/1 var(--f-title);color:var(--gold);text-shadow:0 3px 0 var(--maroon-d),0 10px 30px rgba(60,5,8,.4);letter-spacing:.01em}
+.card .no{display:inline-block;font:700 11px/1 var(--f-title);letter-spacing:.32em;color:var(--maroon);background:var(--gold);padding:6px 10px 5px 12px;border-radius:999px}
+.card .ta{margin-top:14px;font:700 clamp(19px,1.75vw,26px)/1.38 var(--f-ta);color:#fff;text-wrap:balance}
+.card .en{margin-top:8px;font:700 clamp(11px,.95vw,13px)/1.45 var(--f-title);letter-spacing:.12em;text-transform:uppercase;color:var(--gold-hi)}
+.card .desc{margin-top:12px;font:400 clamp(14px,1.08vw,16px)/1.6 var(--f-body);color:var(--ink-dim)}
+
+/* year rail on a maroon pill */
+.rail{position:absolute;z-index:4;left:50%;bottom:22px;translate:-50% 0;margin:0;padding:12px 22px 10px;list-style:none;display:flex;gap:clamp(14px,2.6vw,40px);opacity:0;transition:opacity .6s;--fill:0;
+  background:rgba(92,10,14,.88);border-radius:999px;box-shadow:0 10px 30px rgba(60,5,8,.3)}
+.rail.in{opacity:1}
+.rail::before{content:"";position:absolute;left:28px;right:28px;top:17px;height:2px;background:rgba(255,224,122,.25)}
+.rail::after{content:"";position:absolute;left:28px;right:28px;top:17px;height:2px;background:var(--gold);transform:scaleX(var(--fill));transform-origin:left;transition:transform .6s}
+.rail li{position:relative;display:grid;justify-items:center;gap:8px;font:700 10px/1 var(--f-title);letter-spacing:.08em;color:rgba(255,224,122,.45);transition:color .4s}
+.rail i{width:12px;height:12px;border-radius:50%;border:2px solid rgba(255,224,122,.5);background:var(--maroon-d);z-index:1;transition:all .4s}
+.rail li.on{color:rgba(255,240,200,.85)}.rail li.on i{background:var(--gold);border-color:var(--gold)}
+.rail li.now{color:#fff}.rail li.now i{transform:scale(1.25);box-shadow:0 0 0 4px rgba(246,195,46,.3),0 0 16px var(--gold)}
+.tag{position:absolute;z-index:5;left:16px;bottom:14px;font:700 10px/1.3 var(--f-title);letter-spacing:.08em;color:rgba(92,10,14,.55)}
+.next{height:100svh;display:grid;place-items:center;align-content:center;gap:12px;background:linear-gradient(#ffe7b0,#fff7e6);text-align:center}
+.next p{margin:0;font:700 12px/1 var(--f-title);letter-spacing:.34em;text-transform:uppercase;color:var(--maroon)}
+.next h3{margin:0;font:700 clamp(28px,4vw,56px)/1 var(--f-title);color:rgba(142,20,24,.35)}
+
+/* phones: card as a lower panel, rail shows dots only */
+@media (max-aspect-ratio:4/5){
+  .card,.card.left,.card.right{left:14px;right:14px;width:auto;top:auto;bottom:68px;translate:none;padding:22px 20px 18px}
+  .card .yr{font-size:64px;right:14px}.card .ta{font-size:18px;margin-top:10px}.card .desc{font-size:13.5px;line-height:1.5;margin-top:8px}
+  .rail{gap:11px;padding:10px 16px 9px;bottom:16px}.rail li span{display:none}.rail::before,.rail::after{top:15px;left:22px;right:22px}
+  .tag{bottom:auto;top:14px}
+}
+@media (prefers-reduced-motion:reduce){.grain,.title .cue i{animation:none}.card,.card > *,.title > *{transition:none}}
+</style>
+<div class="spacer">Scroll down ↓</div>
+<section id="journey" aria-label="Our journey">
+  <div class="pin">
+    <div id="journey-stage" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="title" id="journey-intro">
+      <p class="k">Our Journey · 1992 – 2025</p>
+      <h2 class="ta" lang="ta">எங்கள் பயணம்</h2>
+      <p class="en">Our Journey</p>
+      <p class="cue"><span>Scroll to travel</span><i></i></p>
+    </div>
+    <div class="cards" id="journey-cards"></div>
+    <div class="title" id="journey-outro">
+      <p class="k">2026 and beyond</p>
+      <h2 class="ta" lang="ta">பயணம் தொடர்கிறது</h2>
+      <p class="en">The journey continues</p>
+    </div>
+    <ol class="rail" id="journey-rail" aria-hidden="true"></ol>
+    <div class="tag">POC · concept, not an official TVK website</div>
+  </div>
+</section>
+<section class="next" aria-label="Next"><p>Join us</p><h3>Be part of the journey</h3></section>
+<script>/*INLINE_JS*/</script>
